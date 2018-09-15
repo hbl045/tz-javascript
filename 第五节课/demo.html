@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            #wrap{
+                position: absolute;
+                top:50px;
+                left:750px;
+                width:350px;
+                height:220px;
+                background-image: url("images/1.jpg");
+                background-repeat: no-repeat;
+            }
+            #inp{
+                display:block;
+                margin: 20px auto;
+            }
+            #submit #btn {
+                display: block;
+                margin: 5px auto;
+            }
+            #list{
+                background-color: rgba(0,0,0,.1);
+                color:cyan;
+            }
+            #list p{
+                border:1px solid brown;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <input id='inp' type="text">
+            <div id="submit">
+                <button id="btn">提交</button>
+            </div>
+            <div id="list">
+                <p></p>
+            </div>
+        </div>
+        <script>
+            let btn = document.getElementById("btn");
+            let text = document.getElementById("inp");
+            let list = document.getElementById("list")
+            btn.onclick = function() {
+                let value = text.value;
+                if(value.length!=0) {
+                    list.innerHTML += '<p>'+value+'</p>';
+                    text.value = '';
+                }
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
