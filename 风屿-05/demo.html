@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            .fl-l{
+                float:left;
+            }
+            .fl-r{
+                float:right;
+            }
+            clearfix:after{
+                contenr:'';
+                display:block;
+                clear:both;
+            }
+            #wrap{
+                width:400px;
+                height:600px;
+                margin:50px auto;
+                background-color: blueviolet;
+            }
+            #box{
+                width:100%;
+                height:50px;
+                background-color: aliceblue;
+            }
+            #pic{
+                display:block;
+                width: 47px;
+                height: 47px;
+                border:1px solid #ccc;
+                border-radius: 50%;
+            }
+            #pic2{
+                margin-top: 7px;
+            }
+            #hidden{
+                display:none;
+                width:300px;
+                height:100%;
+            }
+            #box #hidden input{
+                margin: 15px 10px;
+            }
+            #box #hidden button{
+                margin: 15px 0;
+            }
+            #list{
+                color:darkseagreen;
+            }
+            #list p{
+                line-height: 50px;
+                border: 1px solid coral;
+                vertical-align: middle;
+
+            }
+            #list p img{
+                display:block;
+                float: left;
+                margin-right: 5px;
+                width: 47px;
+                height: 47px;
+                border:1px solid #ccc;
+                border-radius: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="box" class="clearfix">
+                <img id="pic" class='fl-l' src="images/1.jpg" alt="头像" width="380px" height="370px">
+                <div  id="hidden" class='fl-l'>
+                    <input type="text" class='fl-l' placeholder="请发表你的看法">
+                    <button class='fl-l'>提交</button>
+                </div>
+                <img id="pic2" class='fl-r' src="images/6.png" alt="图标" width="36px" height="36px" >
+            </div>
+            <div id="list">
+
+            </div>
+        </div>
+
+        <script>
+            //隐藏标签
+            let hid = document.getElementById("hidden");
+            let pen = document.getElementById("pic2");
+            let flag = false;
+            pen.onclick = function (){
+                // if(flag){
+                //     hid.style.display = 'block';
+                // }
+                // else{
+                //     hid.style.display = 'none';
+                // }正常运算思维
+                hid.style.display = flag ? 'none' : 'block';//三目运算，在只确定判断正反的时候，可以适应。X.x =条件？ 正：反
+                flag = !flag;
+            }
+            //头像变换
+            let tp = document.querySelector(".clearfix>#pic");
+            tp.flag = true;
+            tp.onclick = function (){
+                if (tp.flag){
+                    tp.src ="images/1.jpg";
+                }
+                else{
+                    tp.src ="images/2.jpg";
+                }
+                tp.flag = !tp.flag;
+            }
+
+
+            //传递元素
+            let test = document.getElementsByTagName('input')[0];
+            let btn = document.getElementsByTagName("button")[0];
+            let list = document.getElementById('list');
+            btn.onclick = function () {
+                let value = test.value;
+                if(value.length!=0){
+                    list.innerHTML += `<p><img src="${tp.src}" >${value}</p>`;
+                    test.value= '';
+                }
+            };
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
