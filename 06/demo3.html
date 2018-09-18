@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        #top span{
+            display: block;
+            float: left;
+            width:80px;
+            height: 25px;
+            border: 1px solid #000;
+            text-align: center;
+            line-height: 25px;
+            margin: 5px;
+            background-color: darkseagreen;
+        }
+            #bottom span{
+                display: block;
+                float: left;
+                width:80px;
+                height: 25px;
+                border: 1px solid #000;
+                text-align: center;
+                line-height: 25px;
+                margin: 5px;
+                background-color: crimson;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="top">
+        </div>
+        <div id="bottom">
+        </div>
+        <script>
+            let bp = document.getElementById("top");
+            let fp = document.getElementById("bottom");
+            for(let i=1;i<=9;i++){//控制行数
+                for(let j=1;j<=i;j++){//控制列数
+                  bp.innerHTML +=`<span>${i}*${j}=${i*j}</span>`;
+                  console.log(`这是第${i}行，第${j}列`);
+                }
+                bp.innerHTML +=`<br><br>`;
+            }
+            for(let i=9;i>=1;i--) {
+                for (let j=i;j>=1;j--) {
+                    fp.innerHTML +=`<span>${i}*${j}=${i*j}</span>`;
+                }
+                fp.innerHTML +=`<br><br>`;
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
