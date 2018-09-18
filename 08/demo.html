@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            ul{
+                width: 200px;
+                margin: 50px;
+            }
+            ul li{
+                height:30px;
+                overflow: hidden;
+                margin: 3px 0;
+            }
+            ul li.show{
+                height:auto;
+            }
+            ul li h3{
+                line-height: 30px;
+                text-indent: 10px;
+                background-color:rebeccapurple;;
+                color:wheat;
+                cursor: pointer;
+            }
+            ul li div{
+                margin: 10px 0;
+            }
+            ul li div span{
+                margin-left:20px ;
+            }
+            ul li div input{
+                float:right;
+                padding: 3px 5px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li>
+                <h3>我的同学</h3>
+                <div>
+                    <span>渣渣辉</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>谷填了</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>烧茄子</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>才上线</span>
+                    <input type="button" value="修改">
+                </div>
+            </li>
+            <li>
+                <h3>我的同事</h3>
+                <div>
+                    <span>积极地</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>大大V</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>我玩的</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>是的的</span>
+                    <input type="button" value="修改">
+                </div>
+            </li>
+            <li>
+                <h3>我的随意</h3>
+                <div>
+                    <span>Bav</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>阿达瓦</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>贝多芬</span>
+                    <input type="button" value="修改">
+                </div>
+                <div>
+                    <span>爆发出</span>
+                    <input type="button" value="修改">
+                </div>
+            </li>
+        </ul>
+        
+        
+        <script>
+            let ul =document.getElementsByTagName("ul")[0];
+            let head =ul.getElementsByTagName("h3");
+            let list =ul.getElementsByTagName("li");
+            let btn =ul.getElementsByTagName("input");
+            let text =ul.getElementsByTagName("span");
+            let arr = ["确定","修改"]
+
+            //赋值try
+            // for (let i=0; i< head.length;i++) {
+            //     head[i].onclick =function () {
+            //         list[i].className = "show";
+            //     }
+            // }
+
+            //第一种方法 用mark开关控制，与if语句联用
+            // for(let i =0;i<head.length;i++){
+            //     head[i].mark =false;
+            //     head[i].onclick =function () {
+            //         if(head[i].mark){
+            //             list[i].className ="";
+            //         }
+            //         else{
+            //             for (let j=0; j<list.length; j++) {
+            //                 list[j].className ="";//第二次单击自身
+            //                 head[j].mark =false;
+            //             }
+            //             list[i].className ="show";//改变属性，主语句
+            //         }
+            //         head[i].mark=!head[i].mark;//开关在外互换
+            //     }
+            // }
+
+            //contenteditable
+
+            //第二种方法
+            let lastIndex= -1;//用来存储上一级的代码
+            for(let i =0;i<head.length;i++){
+                head[i].onclick =function () {
+                    if(lastIndex!== -1){//判断是否为1，不是为初值
+                        list[lastIndex].className="";
+                        if(lastIndex === i){//判断为同一值不，同值重新赋值lastIndex=-1
+                            lastIndex = -1;
+                            return;//因为不是for循环，需要返回值，不然代码只执行一次，导致需要重新加载
+                        }
+
+                    }
+                    list[i].className = "show";
+                    lastIndex = i;//当某个值被打开时，进行lastIndex=i赋值为当前值
+                }
+            }
+
+            //修改按钮 代码
+            for (let j=0;j<btn.length; j++) {//因为是嵌套内的元素组需要循环查找当前的list[i]
+                btn[j].mark =false;//控制为可以修改和不能修改的情况。
+                btn[j].onclick = function () {
+                   // if(btn[j].mark){
+                   //     text[j].contentEditable =false;//可以编辑内容属性-css，true or false
+                   //     btn[j].value ="修改";//一般情况的算法
+                   // }else{
+                   //     text[j].contentEditable =true;
+                   //     btn[j].value ="确定";
+                   // }
+                    text[j].contentEditable =!btn[j].mark;
+                    btn[j].value =arr[btn[j].mark*1]//通过提前的arr[]数组，进行提取
+                   btn[j].mark=!btn[j].mark;//控制器取反，重复使用
+                }
+            }
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
