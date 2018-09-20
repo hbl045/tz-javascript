@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        #wrap{
+            position: relative;
+            border: 1px dotted gray;
+            margin: 20px auto;
+        }
+            #wrap>div{
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+                background-color: crimson;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap"></div>
+        
+        <script>
+            let oWrap =document.getElementById("wrap");
+            let num =10;
+            let mid;
+            let HTML ="";
+
+            //通过判断奇偶,调整盒子大小
+            if(num % 2){
+                mid =(num-1)/2;
+            }
+            else{
+                mid =num/2;
+            }
+            oWrap.style.width =(num+1)*50 + "px";
+            oWrap.style.height =(mid+1)*50 + "px";
+
+            for(let i=0;i<=num;i++){
+                if(i <= mid){
+                    //一半之前
+                    HTML += `<div style="top: ${(i)*50}px;left: ${i*50}px;">${i}</div>`;
+                }
+                else{
+                    HTML += `<div style="top: ${(num-i)*50}px;left: ${(i)*50}px;">${i}</div>`;
+                    console.log("012");
+                }
+
+            }
+            oWrap.innerHTML = HTML;
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
