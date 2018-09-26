@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        #wrap{
+            width:615px;
+            height:310px;
+            margin: 50px auto;
+            border: 1px solid #d9d9d9;
+            border-radius:2%;
+        }
+            #wrap .inp{
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                vertical-align: middle;
+                text-align: center;
+            }
+            #wrap .inp .cont{
+                text-indent: 20px;
+            }
+            #wrap .p{
+                width: 605px;
+                height: 250px;
+                margin: 5px 5px;
+            }
+            #wrap .p p{
+                text-indent: 20px;
+            }
+            #wrap .p p span{
+                color: crimson;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <!--功能区-->
+            <div class="inp">
+                <input id="cont1" type="text" placeholder="请输入搜索内容">
+                <input id="btn1" type="button" value="搜索">
+                <input id="cont2" type="text" placeholder="请替换需要的内容">
+                <input id="btn2" type="button" value="替换">
+            </div>
+
+            <!--文章区-->
+            <div class="p">
+                <p>《机动战士高达》自1979年登场以来，已成为日本动画作品中最著名、最经久不衰、最庞大、也是盈利最高的系列 。
+                    《机动战士高达0079》与《宇宙战舰大和号》、《新世纪福音战士》（EVA）并称为日本科幻动画的3大里程碑。
+                万代（BANDAI）未正式进中国大陆销售前Gundam在大陆的翻译受香港影响多翻译为“高达”，而万代进驻中国大陆销售
+                    时注册名字时发现“高达”一词已被注册，所以改名为“敢达”。同样，进驻中国台湾地区时候，也因为“高达”一词
+                    已被注册，改名为“钢弹”。但因为“高达”的名字早已经深入民心，即使大陆和台湾官方并非以此称呼，但各地粉丝
+                    迷都一律称之为“高达”。不过，BANDAI已经决定在2017年9月开始，重新正式启用“高达”这一名称，解决了这么多
+                    年以来高达粉丝们的怨念。</p>
+            </div>
+        </div>
+        
+        <script>
+            let obtn1 =document.getElementById("btn1");
+            let obtn2 =document.getElementById("btn2");
+            let ocont1 =document.getElementById("cont1");
+            let ocont2 =document.getElementById("cont2");
+            let op =document.getElementsByTagName("p")[0];
+            let txt = op.innerHTML;//设置一个形参用来存储变换值
+
+            obtn1.onclick = function () {
+
+                let value = ocont1.value.trim();//获取第一个文本框的内容，且清空空格。
+                if(value){//判断是否为空，有值就运行
+                    op.innerHTML = txt.split(value).join(`<span>${value}</span>`);
+                }
+            }
+            //split 剪切字符串  trim 清空字符串的空格 join 添加字符串
+            
+            obtn2.onclick = function () {
+                let value1 = ocont1.value.trim();
+                let value2 = ocont2.value.trim();
+
+                if(value1){//判断是否为空，有值就运行
+                    let arr = txt.split(value1);
+                    op.innerHTML = arr.join(`<span>${value2}</span>`);
+                    txt =arr.join(value2);
+                }
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
