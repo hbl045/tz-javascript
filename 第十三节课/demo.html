@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        #wrap{
+            width:320px;
+            height: 70px;
+            margin: 130px auto;
+        }
+            #wrap span,#wrap ul{
+                float: left;
+            }
+            #wrap span{
+                line-height:70px;
+                vertical-align: middle;
+                color: red;
+            }
+            #wrap ul{
+                display: inline-block;
+                margin:24px 10px;
+            }
+            #wrap ul li{
+                float: left;
+                width: 20px;
+                height: 20px;
+                background-image: url("images/star.png");
+                cursor: pointer;
+            }
+            #wrap ul li.show{
+                background-position:bottom;
+            }
+            #wrap p{
+                float: right;
+                width:120px;
+                height: 100%;
+                border: 1px solid deeppink;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <span>星级评分:</span>
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <p>提示：请认真给当前文章打分</p>
+        </div>
+        
+        <script>
+            //简便方法
+            (function () {
+
+                let oUl =document.querySelector("#wrap ul"),
+                    aLi =document.querySelectorAll("#wrap ul li"),
+                    oTxt =document.querySelector("#wrap p"),
+                    len =aLi.length,
+                    index = -1,
+                    arr =[
+                        "提示：请认真给当前文章打分",
+                        "差评",
+                        "还差一丢丢",
+                        "还好吧",
+                        "不错",
+                        "真的很好哦"
+                    ]
+                ;
+
+                for(let i=0;i<len;i++){
+                    aLi[i].onmouseenter = function () {
+                        //先知道当前序号 -- 已知i
+                        //少于 i的点亮，大于i的灭掉
+                        for(let j=0;j<len;j++){
+                            aLi[j].className = j<=i?"show":"";
+                        }
+                    };
+
+                    //这是aLi的点击事件
+                    aLi[i].onclick = function () {
+                        index = i;
+                    };
+                }
+
+                //这是ul的移出事件
+                oUl.onmouseleave = function () {
+                    for(let i=0;i<len;i++){
+                        aLi[i].className = i<=index?"show":"";
+                    }
+                    oTxt.innerHTML = arr[index+1];
+                };
+            })();
+
+
+            // let ali =document.querySelectorAll("#wrap ul li");
+            // let op =document.querySelectorAll("#wrap p")[0];
+            // let arr =["差评","还差一丢丢","还好吧","不错","真的很好哦"];
+            // let leng =ali.length;
+            // let index = -1;
+            //
+            //
+            // //移入事件
+            // function onEvent(i) {
+            //     for(let j=0;j<=i;j++) {
+            //         //星级补充，对于高星级的
+            //         ali[j].className = "show";
+            //     }
+            //     for(let j=i+1;j<leng;j++) {
+            //         //星级补充，对于高星级的
+            //         ali[j].className = "";
+            //     }
+            //     op.innerHTML = arr[i];
+            // }
+            //
+            // //点击事件的函数   for(let j=0;j<len;j++){aLi[j].className = j <=i?"light":"";}
+            // function clickEvent(i) {
+            //     index = i;
+            //     for(let j=0;j<=index;j++) {
+            //         //星级补充，对于高星级的
+            //         ali[j].className = "show";
+            //     }
+            //     for(let j=index+1;j<leng;j++) {
+            //         //星级补充，对于高星级的
+            //         ali[j].className = "";
+            //     }
+            //     op.innerHTML = arr[index];
+            // }
+            //
+            // //移除事件
+            // function leaveEvent(index) {
+            //     for(let j=0;j<=index;j++) {
+            //         //星级补充，对于高星级的
+            //         ali[j].className = "show";
+            //     }
+            //     for(let j=index+1;j<leng;j++) {
+            //         //星级补充，对于高星级的
+            //         ali[j].className = "";
+            //     }
+            //     if(index === -1)return;
+            //     op.innerHTML = arr[index];
+            // }
+            //
+            // //主函数执行
+            // for(let i=0;i<leng;i++){
+            //     ali[i].onclick = function () {
+            //         clickEvent(i);
+            //     }
+            //     ali[i].onmouseleave = function () {
+            //         leaveEvent(index);
+            //     }
+            //     ali[i].onmouseenter = function () {
+            //         onEvent(i);
+            //     }
+            //
+            // }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+
+            #wrap{
+                position: relative;
+                width:430px;
+                height:206px;
+                margin:50px auto 0;
+                background-color: #303030;
+            }
+            #wrap>.leftTab>ul>li{
+                width:100px;
+                height:40px;
+                margin-bottom:2px;
+                color:white;
+                font-size:14px;
+                line-height:40px;
+                text-align:center;
+                cursor:pointer;
+            }
+            #wrap>.leftTab>ul>li.on{
+                background-color: #f60;
+            }
+            #wrap .content{
+                position: absolute;
+                left:102px;
+                top:0;
+                width:326px;
+                height:204px;
+            }
+            #wrap .content .right{
+                display: none;
+                width: 100%;
+                height: 100%;
+            }
+            #wrap .content .right.on{
+                display: block;
+            }
+            #wrap .content .right ul.img{
+                width: 100%;
+                height: 100%;
+            }
+            #wrap .content .right ul.img li{
+                position: absolute;
+                display: none;
+                top:0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+            #wrap .content .right ul.img li.show{
+                display:block;
+            }
+            #wrap .content ul.tab{
+                position: absolute;
+                left:0;
+                bottom:0;
+            }
+            #wrap .content .right ul.tab li{
+                float:left;
+                width:25px;
+                height:25px;
+                margin:5px;
+                background-color: #000;
+                color:white;
+                font-size:14px;
+                line-height:25px;
+                text-align:center;
+                cursor:pointer;
+            }
+            #wrap .content ul.tab li.woo {
+                background-color: #f60;
+            }
+            #wrap img{
+                width: 326px;
+                height:206px ;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <!--左内容显示区-->
+            <div class="leftTab">
+                <ul>
+                    <li class="on">高达</li>
+                    <li>天人</li>
+                    <li>扎古</li>
+                </ul>
+            </div>
+            <div class="content">
+                <div class="right on">
+                    <ul class="img">
+                        <li class="show"><img src="images/gan1.jpg" alt="高达" width="398px" height="252px"></li>
+                        <li><img src="images/gan2.jpg" alt="高达" width="398px" height="244px"></li>
+                        <li><img src="images/gan3.jpg" alt="高达" width="398px" height="244px"></li>
+                        <li><img src="images/gan4.jpg" alt="高达" width="398px" height="245px"></li>
+                    </ul>
+                    <ul class="tab">
+                        <li class="woo">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                    </ul>
+                </div>
+                <div class="right">
+                    <ul class="img">
+                        <li class="show"><img src="images/OO1.jpg" alt="天人" width="399px" height="251px"></li>
+                        <li><img src="images/OO2.jpg" alt="天人" width="399px" height="244px"></li>
+                        <li><img src="images/OO3.jpg" alt="天人" width="399px" height="249px"></li>
+                        <li><img src="images/OO4.jpg" alt="天人" width="399px" height="251px"></li>
+                    </ul>
+                    <ul class="tab">
+                        <li class="woo">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                    </ul>
+                </div>
+                <div class="right">
+                    <ul class="img">
+                        <li class="show"><img src="images/zha1.jpg" alt="扎古" width="223px" height="142px"></li>
+                        <li><img src="images/zha2.jpg" alt="扎古" width="399px" height="300px"></li>
+                        <li><img src="images/zha3.jpg" alt="扎古" width="399px" height="265px"></li>
+                        <li><img src="images/zha4.jpg" alt="扎古" width="223px" height="140px"></li>
+                        <li><img src="images/zha5.jpg" alt="扎古" width="399px" height="265px"></li>
+                    </ul>
+                    <ul class="tab">
+                        <li class="woo">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            (function () {
+
+                let aLeftTab = document.querySelectorAll("#wrap .leftTab li"),
+                    aRightContent =document.querySelectorAll("#wrap .content .right"),
+                    aImg = document.querySelectorAll("#wrap .right .img"),
+                    aTab = document.querySelectorAll("#wrap .right .tab"),
+                    index = 0,//用来辨别左右大的选项卡对应的显示序号
+                    len =aLeftTab.length
+                ;
+
+                //左侧tab 控制 右侧content 的显示
+                function leftTab(i) {
+                    aLeftTab[i].onclick = function () {
+                        if(index ===i)return;//点击自身返回停止，不做任何事，保持原事件
+                        aLeftTab[index].className ="";
+                        aRightContent[index].className = "right";
+                        index = i;
+                        aLeftTab[index].className = "on";
+                        aRightContent[index].className = "right on";
+                    };
+                }
+
+
+                //右侧的每一块都初始添加tab控制img的事件
+                function rightTab(i) {
+                    let aImgLi = aImg[i].querySelectorAll("li"),
+                        aTabLi = aTab[i].querySelectorAll("li"),
+                        len1 = aImgLi.length,
+                        index1 = 0
+                    ;
+                    for(let j=0;j<len1;j++){
+                        aTabLi[j].onclick = function () {
+                            if(j === index1)return;
+                            aTabLi[index1].className = "";
+                            aImgLi[index1].className = "";
+                            index1 = j;
+                            aTabLi[index1].className = "woo";
+                            aImgLi[index1].className = "show";
+
+
+                        };
+                    }
+
+                }
+
+
+                //左侧tab控制右侧内容的显示
+                for(let i=0;i<len;i++){
+                    leftTab(i);
+                    rightTab(i);
+                }
+
+            })();
+
+
+
+            // let aSpan = document.querySelectorAll("#wrap>ul>li>span"),
+            //     aPic = document.querySelectorAll("#wrap .picture"),
+            //     sLen = aSpan.length,
+            //     index = 0,
+            //     aJpg=[
+            //         aCarJpg=document.querySelectorAll("#wrap .car .picture .jpg li"),
+            //         aFoodJpg = document.querySelectorAll("#wrap .food .picture .jpg li"),
+            //         aBeautyJpg = document.querySelectorAll("#wrap .beauty .picture .jpg li")
+            //     ],
+            //     aTab=[
+            //         aCarTab = document.querySelectorAll("#wrap .car .picture .tab li"),
+            //         aFoodTab = document.querySelectorAll("#wrap .food .picture .tab li"),
+            //         aBeautyTab = document.querySelectorAll("#wrap .beauty .picture .tab li")
+            //     ],
+            //     aLen=[
+            //         cLen=aJpg[0].length,        //两种取值方式都行
+            //         fLen=aFoodJpg.length,
+            //         bLen=aBeautyJpg.length,
+            //     ],
+            //     aIndex=[
+            //         cIndex=0,
+            //         fIndex=0,
+            //         bIndex=0
+            //     ];
+            //
+            // //给对象循环添加事件，以大选卡可选3次为入口
+            // for(let i=0;i<sLen;i++){
+            //     aSpan[i].onmouseenter = function () {
+            //         fSpan(i);
+            //     }
+            //     //循环添加小选项卡事件
+            //     for(let j=0;j<aLen[i];j++){
+            //         aTab[i][j].onmouseenter = function () {
+            //             fTab(i,j);
+            //         }
+            //     }
+            // }
+            //
+            // //定义大选项卡切换事件
+            // function fSpan(i) {
+            //     //清除显示
+            //     aSpan[index].className = '';
+            //     aPic[index].className = 'picture';
+            //     index = i;
+            //     //两边显示
+            //     aSpan[index].className = 'on';
+            //     aPic[index].className = 'picture show';
+            //
+            //     //tab清零
+            //     fClear(i);
+            // }
+            //
+            // //定义循环tab选项卡选择事件函数
+            // function fTab(i,j) {
+            //     aJpg[i][aIndex[i]].className = '';
+            //     aTab[i][aIndex[i]].className = '';
+            //     aIndex[i] = j;
+            //     aJpg[i][aIndex[i]].className = 'show';
+            //     aTab[i][aIndex[i]].className = 'on';
+            // }
+            // //定义切换大选择卡时，tab清零事件
+            // function fClear(i) {
+            //     aJpg[i][aIndex[i]].className='';
+            //     aTab[i][aIndex[i]].className='';
+            //     aIndex[i]=0;
+            //     aJpg[i][0].className='show';
+            //     aTab[i][0].className='on';
+            // }
+            /*
+            for(let i=0;i<aLen[0];i++){
+                aTab[0][i].onmouseenter = function () {
+                    aJpg[0][aIndex[0]].className = '';
+                    aTab[0][aIndex[0]].className = '';
+                    aIndex[0] = i;
+                    aJpg[0][aIndex[0]].className = 'show';
+                    aTab[0][aIndex[0]].className = 'on';
+                }
+            }
+            for(let i=0;i<aLen[1];i++){
+                aTab[1][i].onmouseenter = function () {
+                    aJpg[1][aIndex[1]].className = '';
+                    aTab[1][aIndex[1]].className = '';
+                    aIndex[1] = i;
+                    aJpg[1][aIndex[1]].className = 'show';
+                    aTab[1][aIndex[1]].className = 'on';
+                }
+            }
+            for(let i=0;i<aLen[2];i++){
+                aTab[2][i].onmouseenter = function () {
+                    aJpg[2][aIndex[2]].className = '';
+                    aTab[2][aIndex[2]].className = '';
+                    aIndex[2] = i;
+                    aJpg[2][aIndex[2]].className = 'show';
+                    aTab[2][aIndex[2]].className = 'on';
+                }
+            }
+            */
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

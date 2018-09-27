@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        table{
+            width: 1000px;
+            margin: 50px auto 20px;
+            border-color:#930;
+        }
+            table thead{
+                width: 100%;
+                height: 50px;
+                line-height: 50px;
+                border-color:#930;
+                background-color: #c36;
+            }
+            table thead tr{
+                vertical-align: middle;
+            }
+            table tbody tr{
+                width: 100%;
+                height: 100px;
+            }
+            table>tbody>tr>td{
+                width:25%;
+                line-height: 100px;
+                vertical-align: middle;
+                text-align: center;
+            }
+            .number span{
+                padding:20px 20px ;
+            }
+            .number .sub,.number .add{
+                width:30px;
+                height:30px;
+                background-color:#ddd;
+                line-height:30px;
+                font-weight:bolder;
+                text-align:center;
+                cursor:pointer;
+            }
+            .number .num{
+                width:50px;
+                height:30px;
+                line-height:30px;
+                color:#c36;
+                font-size:12px;
+            }
+            table>tbody>tr>td>img{
+                width:90px;
+                height:80px;
+            }
+            #wrap{
+                position: relative;
+                width:1000px;
+                height:50px;
+                margin:auto;
+                background-color:#c36;
+                line-height:50px;
+            }
+            #wrap p{
+                position: absolute;
+                color:white;
+                font-size:14px;
+                font-weight:bolder;
+            }
+            #wrap .selected{
+                left:500px;
+            }
+            #wrap .all{
+                left:750px;
+            }
+            #wrap p span{
+                color:#f4e5a9;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>商品</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                </tr>
+            <tbody>
+                <tr>
+                    <td><img src="images/shop1.jpg" alt="电子产品" width="220px" height="220px"></td>
+                    <td class="price">8</td>
+                    <td class="number"><span class="sub">-</span><span class="num">0</span><span class="add">+</span></td>
+                    <td class="sum">0</td>
+                </tr>
+                <tr>
+                    <td><img src="images/shop2.jpg" alt="电子产品" width="220px" height="220px"></td>
+                    <td class="price">10</td>
+                    <td class="number"><span class="sub">-</span><span class="num">0</span><span class="add">+</span></td>
+                    <td class="sum">0</td>
+                </tr>
+                <tr>
+                    <td><img src="images/shop3.jpg" alt="电子产品" width="220px" height="220px"></td>
+                    <td class="price">12.5</td>
+                    <td class="number"><span class="sub">-</span><span class="num">0</span><span class="add">+</span></td>
+                    <td class="sum">0</td>
+                </tr>
+                <tr>
+                    <td><img src="images/shop4.jpg" alt="电子产品" width="220px" height="220px"></td>
+                    <td class="price">23</td>
+                    <td class="number"><span class="sub">-</span><span class="num">0</span><span class="add">+</span></td>
+                    <td class="sum">0</td>
+                </tr>
+        </tbody>
+
+
+        </tbody>
+            </thead>
+        </table>
+        <div id="wrap">
+            <p class="selected">已选中商品：<span>0</span>件</p>
+            <p class="all">合计费用：<span>0</span>美元</p>
+        </div>
+        
+        <script>
+            //模块化的方法
+            (function () {
+
+                //模拟一个存储各种关键值的数据，而不是每次通过innerHTML获取数据
+                let data = [
+                    {
+                        id : 0,
+                        price: 8,
+                        num: 0
+                    },
+                    {
+                        id : 1,
+                        price: 10,
+                        num: 0
+                    },
+                    {
+                        id : 2,
+                        price: 12.5,
+                        num: 0
+                    },
+                    {
+                        id : 3,
+                        price: 23,
+                        num: 0
+                    }
+                ];
+
+                let aAdd =document.querySelectorAll("table .number .add"),
+                    aDown =document.querySelectorAll("table .number .sub"),
+                    aNum =document.querySelectorAll("table .number .num"),
+                    aSum =document.querySelectorAll("table .sum"),
+                    oSelect =document.querySelector("#wrap .selected span"),
+                    oAll =document.querySelector("#wrap .all span")
+                ;
+
+                let len = aAdd.length;
+
+                //页面的变化
+                function change(i) {
+                    //数量栏目里面显示新的数量
+                    aNum[i].innerHTML = data[i].num;
+
+                    //小计栏目显示出的新的小计价格
+                    aSum[i].innerHTML = data[i].num * data[i].price;
+
+                    //总价格与总数量的更新
+                    let sum =0,p = 0;
+                    for(let i=0;i<len;i++){
+                        sum += data[i].num;
+                        p += data[i].num *data[i].price;
+                    }
+                    oSelect.innerHTML = sum+"";
+                    oAll.innerHTML = p+"";
+                }
+
+                for (let i=0;i<len;i++) {
+                    // + 按钮
+                    aAdd[i].onclick = function () {
+                        //先提一点 -- 先拿出操作的那个数据
+                        //let thisData =data[i];
+                        //数据的变化
+                        data[i].num ++;
+                        change(i);
+                    };
+
+                    // - 按钮
+                    aDown[i].onclick = function () {
+                        //数量的变化
+                        data[i].num --;
+                        if(data[i].num<0)data[i].num=0;
+                        change(i);
+                    }
+                }
+            })();
+
+            // let apr =document.querySelectorAll("table .price"),
+            //     aSub =document.querySelectorAll("table .number .sub"),
+            //     aAdd =document.querySelectorAll("table .number .add"),
+            //     aNum =document.querySelectorAll("table .number .num"),
+            //     aSum =document.querySelectorAll("table .sum"),
+            //     oSelect =document.querySelector("#wrap .selected span"),
+            //     oAll =document.querySelector("#wrap .all span"),
+            //     leng =apr.length;
+            //
+            //
+            //     function subtraction(i) {
+            //         //console.log(typeof aNum[i].innerHTML);     string
+            //         if(aNum[i].innerHTML == 0) return;  //不能小于0
+            //         aNum[i].innerHTML--;
+            //         aSum[i].innerHTML -= apr[i].innerHTML;
+            //         oSelect.innerHTML --;
+            //         oAll.innerHTML -= apr[i].innerHTML;
+            //     }
+            // //加法事件
+            //     function addition(i) {
+            //         aNum[i].innerHTML++;
+            //         aSum[i].innerHTML = aNum[i].innerHTML*apr[i].innerHTML;
+            //         oSelect.innerHTML++;
+            //         oAll.innerHTML = oAll.innerHTML*1 + apr[i].innerHTML*1
+            //     }
+            //
+            // //循环点击事件
+            // for(let i=0;i<leng;i++){
+            //     //减法计算
+            //     aSub[i].onclick = function () {
+            //         subtraction(i);
+            //     }
+            //     //加法计算
+            //     aAdd[i].onclick = function () {
+            //         addition(i);
+            //     }
+            // }
+
+            
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
