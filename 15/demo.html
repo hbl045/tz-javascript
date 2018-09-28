@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>价格升降序商品</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+
+            *{
+                margin:0;
+                padding:0;
+                user-select: none;
+            }
+            .list{
+                width:1000px;
+                height:610px;
+                margin:50px auto 0;
+            }
+
+            .list ul{
+                list-style-type:none;
+
+            }
+            .list .title{
+                border:1px solid #ccc;
+            }
+            .list .clearfix:after{
+                content:'';
+                display:block;
+                clear:both;
+            }
+            .list .title li{
+                float:left;
+                padding:0 36px;
+                font-size:14px;
+                line-height:42px;
+            }
+            .list .flower li{
+                float:left;
+                width:198px;
+                height:230px;
+                padding:12.5px;
+                margin:10px 12px;
+                border:1px solid #ccc;
+            }
+            .list .flower li img{
+                width:200px;
+                height:200px;
+            }
+            .list .flower li p{
+                display: inline-block;
+                font-size:12px;
+                line-height:30px;
+            }
+            .list .flower li p:first-child{
+                float: left;
+            }
+            .list .flower li p:last-child{
+                float: right;
+            }
+            .list .flower li p:last-child span{
+                font-size: 15px;
+                color: darkred;
+            }
+            .list3 {
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                vertical-align: middle;
+                text-align: center;
+                font-size: 13px;
+            }
+            .list3 p{
+                display: inline-block;
+                width: 70px;
+                height: 30px;
+                margin: 0 4px;
+                line-height: 30px;
+                vertical-align: middle;
+                text-align: center;
+                border: 1px solid #cc3366;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='list'>
+            <ul class='clearfix title'>
+                <li>流行</li>
+                <li>热销</li>
+                <li>上新</li>
+                <li>价格</li>
+            </ul>
+            <div class='list2'>
+                <ul class='flower clearfix' id="content">
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img1.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>这个原图有白色边框</p>-->
+                        <!--<p>￥<span>97</span></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img2.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>粉红玫瑰浪漫系列</p>-->
+                        <!--<p>￥<span>99.5</span></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img3.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>粉红玫瑰浪漫系列</p>-->
+                        <!--<p>￥<span>100</span></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img4.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>粉红玫瑰浪漫系列</p>-->
+                        <!--<p>￥<span>130</span></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img5.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>粉红玫瑰浪漫系列</p>-->
+                        <!--<p>￥<span>215</span></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img6.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>粉红玫瑰浪漫系列</p>-->
+                        <!--<p>￥<span>300</span></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img7.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>粉红玫瑰浪漫系列</p>-->
+                        <!--<p>￥<span>500</span></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src='demo2/xh_img8.jpg' alt='鲜花' width='400' height='400'>-->
+                        <!--<p>粉红玫瑰浪漫系列</p>-->
+                        <!--<p>￥<span>700</span></p>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+        <div class="list3">
+            <p>从低到高</p>
+            <p>从高到低</p>
+        </div>
+        <script>
+            let arr =[
+                {
+                    url:'demo2/xh_img1.jpg',
+                    title:'这个原图有白色边框',
+                    price: '97'
+                },
+                {
+                    url:'demo2/xh_img3.jpg',
+                    title:'粉红玫瑰浪漫系列',
+                    price: '100'
+                },
+                {
+                    url:'demo2/xh_img4.jpg',
+                    title:'粉红玫瑰浪漫系列',
+                    price: '130'
+                },
+                {
+                    url:'demo2/xh_img5.jpg',
+                    title:'粉红玫瑰浪漫系列',
+                    price: '215'
+                },
+                {
+                    url:'demo2/xh_img8.jpg',
+                    title:'粉红玫瑰浪漫系列',
+                    price: '700'
+                },
+                {
+                    url:'demo2/xh_img2.jpg',
+                    title:'粉红玫瑰浪漫系列',
+                    price: '99.5'
+                },
+                {
+                    url:'demo2/xh_img6.jpg',
+                    title:'粉红玫瑰浪漫系列',
+                    price: '300'
+                },
+                {
+                    url:'demo2/xh_img7.jpg',
+                    title:'粉红玫瑰浪漫系列',
+                    price: '500'
+                },
+            ]
+            let aBtn = document.getElementsByTagName("p"),
+                list = document.getElementById("content")
+            ;
+                //  把初始数组 渲染出来
+            function view(arr) {// 渲染arr里的数据
+                list.innerHTML = ""
+                arr.forEach(v => {
+                    list.innerHTML += `<li>
+                            <img src="${v.url}" alt=''>
+                            <p>${v.title}</p>
+                            <p>￥<span>${v.price}</span></p>
+                            </li>`
+                    } )
+            }
+            view(arr)//渲染初始数据
+
+            // aBtn onclick
+            for (let i = 0;i< aBtn.length;i++){
+                aBtn[i].onclick = function () {
+
+                    // i?arr.sort((a, b) => a.price - b.price): arr.sort((a, b) => b.price - a.price);三目运算
+                    if(i){// 1 == 从低到高
+                        arr.sort((a, b) => a.price - b.price)
+                    }else {// 0 == 从高到低
+                        arr.sort((a, b) => b.price - a.price)
+
+                    }
+                    view(arr)
+                }
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
