@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            button#run{
+                width: 50px;
+                height: 20px;
+                margin-top: 50px;
+                margin-left:  800px;
+                cursor: pointer;
+            }
+            #wrap{
+                width: 1500px;
+                margin: 50px auto;
+                border: 1px solid #ccc;
+            }
+
+            #wrap div{
+                float: left;
+                width: 300px;
+                height: 100px;
+                line-height: 100px;
+                vertical-align: middle;
+                text-align: center;
+
+            }
+
+        </style>
+    </head>
+    <body>
+        <button id="run">run</button>
+        <button id="stop">stop</button>
+        <div id="wrap">
+        </div>
+        
+        <script>
+            (function () {
+                let wrap = document.getElementById("wrap"),
+                    run = document.getElementById("run"),
+                    stopRun = document.getElementById("stop"),
+                    timer = null
+                ;
+
+                // 随机一个区间 (左右都是闭区间)
+                const random = (a,b) => Math.floor(Math.random() * (b + 1 -a)+a);
+
+                //rgb(r, g, b) [0, 255]
+                const rgb = () => `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
+                //rgb(r, g, b, a) [0, 255]
+                const rgba = () => `rgba(${random(0, 255)},${random(0, 255)},${random(0, 255)},
+                ${Math.random().toFixed(1)})`;//toFixed()银行四舍五入取
+
+                const h16 = () => {
+                    let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", 'b', 'c', 'd', 'e', 'f']
+                    let color = "#"
+                    for(let i =0; i < 6; i++){
+                        color += arr[random(0, arr.length - 1)]
+                    }
+                    return color
+                }//16位色号
+
+                let handle = () => {
+                    let color = rgba()//通过改变颜色的方法进行取色
+                    wrap.innerHTML += `<div style="background-color:${color};">${color}</div>`
+                }
+
+                timer = setInterval(handle, 800)//提前渲染页面
+
+                run.onclick = function () {
+                    clearInterval(timer)//用来解决多次点击运行按钮，点击暂停不能停的作用，每次运行前暂停提前渲染的按钮，控制点击的次数
+                    timer = setInterval(handle, 800)
+                }
+
+                stopRun.onclick = function () {
+                    clearInterval(timer)
+                }
+
+            })();
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
