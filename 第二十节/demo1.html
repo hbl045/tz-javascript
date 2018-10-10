@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;
+                user-select: none;
+            }
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+        #wrap{
+            width: 420px;
+            height: 625px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            border-radius: 5%;
+            background-color: #fefefe;
+        }
+            #wrap ul{
+                margin-top: 35px;
+            }
+            #wrap ul li{
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                vertical-align: middle;
+                text-indent: 20px;
+                color: white;
+            }
+            #wrap ul li.bgc333{
+                background-color:#333;
+            }
+            #wrap ul li.bgc989898{
+                background-color:#989898;
+            }
+            #wrap ul li.bgc666{
+                background-color: #666;
+            }
+
+            .bottom{
+                height: 100px;
+                line-height: 100px;
+                vertical-align: middle;
+                text-indent: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <ul>
+                <li>
+                    <input type="checkbox" id="checkedbox1">
+                    <label for="checkedbox1">项目一</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkedbox2">
+                    <label for="checkedbox1">项目二</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkedbox3">
+                    <label for="checkedbox1">项目三</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkedbox4">
+                    <label for="checkedbox1">项目四</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkedbox5">
+                    <label for="checkedbox1">项目五</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkedbox6">
+                    <label for="checkedbox6">项目六</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkedbox7">
+                    <label for="checkedbox1">项目七</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="checkedbox8">
+                    <label for="checkedbox1">项目八</label>
+                </li>
+            </ul>
+            <div class="bottom">
+                <input type="checkbox" id="checkedbox9">
+                <label class="sel-all" for="checkedbox9">全选</label>
+                <input type="checkbox" id="checkedbox10">
+                <label class="not-all" for="checkedbox10">全不选</label>
+                <input type="checkbox" id="checkedbox11">
+                <label class="sel-against" for="checkedbox11">反选</label>
+            </div>
+        </div>
+
+        <script>
+            (function(){
+                let aWrapListLi=document.querySelectorAll("#wrap ul li"),
+                    aListLiLabel=document.querySelectorAll("#wrap ul li label"),
+                    oSelAgainst=document.querySelector("#wrap .bottom .sel-against"),
+                    oSelAll=document.querySelector("#wrap .bottom .sel-all"),
+                    oNotAll=document.querySelectorAll("#wrap .bottom .not-all"),
+                    aInput=document.getElementsByTagName("input"),
+                    aLabel=document.getElementsByTagName("label");
+                let len=aWrapListLi.length;
+
+                function bindInput(){              //把所有的input与label绑定
+                    for(let i=0,len=aInput.length;i<len;i++){
+                        aInput[i].checked = aLabel[i].classList.contains("checked")?true:false;
+                    }
+                }
+
+                for(let i=0;i<len;i++) {
+                    switch (i % 3) {   //给li加背景
+                        case 1:
+                            aWrapListLi[i].classList.add("bgc666");  //1
+                            break;
+                        case 2:
+                            aWrapListLi[i].classList.add("bgc989898");  //2
+                            break;
+                        default:
+                            aWrapListLi[i].classList.add("bgc333");   //余数为0 -3 6
+                            break;
+                    }
+
+
+                    aListLiLabel[i].onclick = function () {    //点击前面8个label
+                        let index = true;  //标记是否全部都checked
+                        aListLiLabel[i].classList.toggle("checked");
+                        for (let i = 0; i < len; i++) {
+                            if (aListLiLabel[i].classList.contains("checked") === false) {
+                                index = false;
+                                break;
+                            }
+                        }
+                        if (index) {
+                            oSelAll.classList.add("checked");
+                        }
+                        bindInput();
+                    }
+                }
+
+                oSelAll.onclick=function(){           //全选
+                    this.classList.toggle("checked");
+                    if(this.classList.contains("checked")===true){
+                        for(let i=0;i<len;i++){
+                            aListLiLabel[i].classList.add("checked");
+                        }
+                    }
+
+                    bindInput();
+                }
+
+                oNotAll.onclick=function(){
+                    this.classList.toggle("checked");
+                    if(this.classList.contains("checked")===true){
+                        for(let i=0;i<len;i++){
+                            aListLiLabel[i].classList.remove("checked");
+                        }
+                    }
+                    bindInput();
+                }
+
+                oSelAgainst.onclick=function(){       //反选
+                    this.classList.toggle("checked");
+                    if(this.classList.contains("checked")===true){
+                        for(let i=0;i<len;i++){
+                            let action=aListLiLabel[i].classList.contains("checked")?"remove":"add";
+                            aListLiLabel[i].classList[action]("checked");
+                        }
+                    }
+                    bindInput();
+                }
+
+            })();
+
+             // 简便版
+            // num发生变化后必须要做的事
+            //  function ifFullNum() {
+            //      oAll.classList[num===len?"add":"remove"]("click");
+            //  }
+            //
+            // (function () {
+            //     let html = "";
+            //     let color = ["#222","#555","#888", "#bbb"];
+            //     let colorLen = color.length;
+            //     for(let i=0,len=data.length;i<len;i++){
+            //         html += `<li style="background-color: ${color[i%colorLen]}">${data[i].TXT}</li>`
+            //     }
+            //     oUl.innerHTML = html;
+            // })();
+
+            //给Li添加点击事件
+            // (function () {
+            //     for(let i =0;i<len;i++){
+            //         aLi[i].onclick() = function () {
+            //             //切换选中状态
+            //             this.classList.toggle("click");
+            //
+            //             //判断当前元素是否拥有 click 名字
+            //             if( this.classList.contains("click")) {
+            //                 num++;
+            //             }
+            //             else{
+            //                 num--;
+            //             }
+            //
+            //             //num变了，必须执行它
+            //             ifFullNum();
+            //         }
+            //     }
+            // })
+            //全选 反选
+            // (function () {
+            //     //全选点击
+            //     oAll.onclick = function () {
+            //         this.classList.toggle("click");
+            //         //判断被点击后的选中状态
+            //         let bool = this.classList.contains("click");
+            //         let attr = bool?"add":"remove";
+            //         for(let i=0;i<len;i++){
+            //             aLi[i].classList[attr]("click");
+            //         }
+            //         num = bool?len:0;
+            //     }
+            //     //反选的点击
+            //     oFan.onclick = function () {
+            //         for (let i = 0; i < len;i++){
+            //             aLi[i].classList.toggle("click");//正为反，反为正
+            //         }
+            //         num = len - num;
+            //     }
+            // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

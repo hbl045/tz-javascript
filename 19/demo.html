@@ -210,7 +210,8 @@
                     if(t1 === 1)cb()
                 }
                 function getStyle(ele) {
-                    return ele.currentStyle || getComputedStyle(ele)
+                    return ele.currentStyle || getComputedStyle(ele)//获取元素的css且做了兼容currentStyle是IE的，
+                    // getComputedStyle 是火狐的
                 }
 
             }

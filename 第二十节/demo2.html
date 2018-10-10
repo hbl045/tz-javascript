@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"><!--字符编码:国际编码-->
+        <!--网页三要素 标题 关键词 描述-->
+        <title>天猫tmall.com--理想生活上天猫</title>
+        <meta name="description" content="描述:对网页文档的大概的介绍">
+        <!--关键词:提供给搜索引擎搜索网站使用-->
+        <meta name="keywords" content="关键词1,关键词2">
+        <meta name="author" content="黄柏龙">
+        <link rel="shortcut icon" href="images/1.png">
+        <link rel='stylesheet' href='css/public.css' type='text/css'>
+        <link rel='stylesheet' href='css/header.css' type='text/css'>
+        <link rel='stylesheet' href='css/main.css' type='text/css'>
+        <link rel='stylesheet' href='css/footer.css' type='text/css'>
+        <link rel='stylesheet' href='css/float.css' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="./iconfont/iconfont.css">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            .float-nav-left{
+                left:215px;
+                bottom:90px;
+                width:40px;
+                height:370px;
+            }
+            .float-nav-left ul{
+                font-size:0;
+            }
+            .float-nav-left ul li{
+                width:38px;
+                height:38px;
+                background-color:#989898;
+                margin:1px 0;
+                padding-top:4px;
+                line-height:1;
+                color:white;
+                font-size:13px;
+                text-align:center;
+                cursor:pointer;
+            }
+            .float-nav-left ul li:nth-child(n-1):hover{
+                background-color:#64c333;
+            }
+            .float-nav-left ul li:first-child{
+                background-color:#ff0036;
+            }
+            .float-nav-left ul li:first-child h4{
+                padding-top:11px;
+            }
+            .float-nav-left ul li:last-child{
+                background-color:rgb(171,171,171);
+            }
+            .float-nav-left ul li:last-child i{
+                font-size:33px;
+            }
+
+            .float-nav-right{
+                top:0;
+                right:0;
+                width:32px;
+                height:100%;
+                background-color:black;
+            }
+            .float-nav-right .float-nav-right-vip{
+                height:36px;
+                margin-top:270px;
+            }
+            .float-nav-right>div:hover{
+                background-color:#ff0036;
+            }
+            .float-nav-right>div a:hover+.hidden{
+                opacity:1;
+                left:-90px;
+            }
+            .float-nav-right>div a:hover+.hidden:after{
+                opacity:1;
+            }
+            .float-nav-right>div .hidden:after{
+                content:'';
+                opacity:0;
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:-7px;
+                width:0;
+                height:0;
+                margin:auto;
+                border-width:7px 0 7px 7px;
+                border-style:solid;
+                border-color:transparent transparent transparent #494949;
+                transition:.5s;
+            }
+            .float-nav-right>div .hidden{
+                left:-2000px;
+                top:0;
+                width:90px;
+                line-height:38px;
+                opacity:0;
+                font-size:0;
+                background-color:#494949;
+                text-align:center;
+                color:white;
+                transition:left .5s cubic-bezier(0,1.19,0,.98),opacity .5s cubic-bezier(.67,-0.01,.8,.04);
+            }
+            .float-nav-right>div .hidden>p{
+                font-size:13px;
+                vertical-align:middle;
+            }
+            .float-nav-right .float-nav-right-shoppingcart{
+                border-top:1px solid #444;
+                border-bottom:1px solid #444;
+                padding:5px 0;
+            }
+            .float-nav-right .float-nav-right-shoppingcart:hover img{
+                color:white;
+            }
+            .float-nav-right .float-nav-right-shoppingcart p{
+                width:12px;
+                padding:0 10px;
+                color:white;
+                font-size:12px;
+            }
+            .float-nav-right .float-nav-right-recharge{
+                margin-top:270px;
+            }
+            .float-nav-right-code .hiddenimg{
+                visibility: hidden;  /*已存在,不过是隐藏不改变对象的display属性-隐藏*/
+                bottom:-3px;
+                left:-154px;
+                width:154px;
+                height:207px;
+                background-image:url('images/48.png');
+                transition:3s;
+            }
+            .float-nav-right-code:hover .hiddenimg{
+                visibility: visible;  /*已存在,不过是隐藏不改变对象的display属性-显示*/
+            }
+            .float-nav-right-code:hover .hiddenim:after{
+                visibility: visible;
+            }
+            .float-nav-right-code .hiddenimg:after{
+                content:'';
+                display:none;
+                position:absolute;
+                bottom:12px;
+                right:-7px;
+                width:0;
+                height:0;
+                margin:auto;
+                border-width:7px 0 7px 7px;
+                border-style:solid;
+                border-color:transparent transparent transparent #ff0036;
+                transition:3s;
+            }
+            .float-nav-right-code .hiddenimg img:nth-child(1){
+                top:43px;
+                left:26px;
+                display:block;
+                width:97px;
+                height:102px;
+            }
+            .float-nav-right-code .hiddenimg img:nth-child(2){
+                bottom:12px;
+                left:15px;
+            }
+        </style>
+    </head>
+    <body>
+
+
+        <!-- float-nav-right start-->
+        <div class="float-nav-right pos-f">
+            <div class="float-nav-right-vip pos-r">
+                <a href='#'>
+                    <img src="images/38.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hidden pos-a'>
+                    <p>会员权益</p>
+                </div>
+            </div>
+            <div class="float-nav-right-shoppingcart">
+                <a href='#'>
+                    <img src="images/39.png" alt="图标" width='35px' height='35px' />
+                    <p>购物车</p>
+                </a>
+            </div>
+            <div class="float-nav-right-money pos-r">
+                <a href='#'>
+                    <img src="images/40.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hidden pos-a'>
+                    <p>我的资产</p>
+                </div>
+            </div>
+            <div class="float-nav-right-collect pos-r">
+                <a href='#'>
+                    <img src="images/41.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hidden pos-a'>
+                    <p>我的收藏</p>
+                </div>
+            </div>
+            <div class="float-nav-right-history pos-r">
+                <a href='#'>
+                    <img src="images/42.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hidden pos-a'>
+                    <p>我看过的</p>
+                </div>
+            </div>
+            <div class="float-nav-right-recharge pos-r">
+                <a href='#'>
+                    <img src="images/43.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hidden pos-a'>
+                    <p>我要充值</p>
+                </div>
+            </div>
+            <div class="float-nav-right-back pos-r">
+                <a href='#'>
+                    <img src="images/44.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hidden pos-a'>
+                    <p>用户反馈</p>
+                </div>
+            </div>
+            <div class="float-nav-right-code pos-r">
+                <a href='#'>
+                    <img src="images/45.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hiddenimg pos-a'>
+                    <img class='pos-a' src="images/134.jpg" alt="二维码" width='175px' height='175px' />
+                    <img class='pos-a'  src="images/47.png" alt="文字" width='135px' height='45px'/>
+                </div>
+            </div>
+            <div class="float-nav-right-top pos-r">
+                <a href='#'>
+                    <img src="images/46.png" alt="图标" width='35px' height='35px' />
+                </a>
+                <div class='hidden pos-a'>
+                    <p>返回顶部</p>
+                </div>
+            </div>
+        </div>
+        <!-- float-nav-right end-->
+
+        <!-- script start-->
+        <script>
+
+            // (function(){
+            //     let aRightVip=document.querySelectorAll(".float-nav-right"),
+            //         aVipHide=document.querySelectorAll(".right-vip-hide");
+            //     function addclass(i){
+            //         aVipHide[i].style.opacity='1';
+            //         aVipHide[i].style.left='-90px';
+            //     }
+            //     function removeclass(i){
+            //         aVipHide[i].style.opacity='0';
+            //         aVipHide[i].style.left='-200px';
+            //     }
+            //     for(let i=0,len=aRightVip.length;i<len;i++){
+            //
+            //         aRightVip[i].onmouseenter=function(){
+            //             aVipHide[i].style.display='block';
+            //             setTimeout(function(){addclass(i)}, 100 );
+            //         }
+            //         aRightVip[i].onmouseleave=function(){
+            //             removeclass(i);
+            //             setTimeout(function(){aVipHide[i].style.display='none'}, 100 );
+            //         }
+            //     }
+            // })();
+
+        </script>
+        <!-- script end-->
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
