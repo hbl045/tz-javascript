@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            ul {
+                overflow: hidden;
+                height: 61px;
+                margin: 100px auto;
+            }
+
+            ul>li {
+
+                list-style: none;
+                float: left;
+                width: 41px;
+                height: 122px;
+                text-align: center;
+                background: #00b262;
+            }
+
+        </style>
+        <script src="./animation.js"></script>
+    </head>
+
+    <body>
+        <div id="box">
+            <ul>
+                <li class="list">
+                    <img class="time" src="images/0.png" alt="">
+                    <img class="sub" src="images/1.png" alt="">
+                </li>
+                <li class="list">
+                    <img class="time" src="images/0.png" alt="">
+                    <img class="sub" src="images/0.png" alt="">
+                </li>
+                <li>
+                    <img src="images/d.png" alt="">
+                </li>
+                <li class="list">
+                    <img class="time" src="images/0.png" alt="">
+                    <img class="sub" src="images/0.png" alt="">
+                </li>
+                <li class="list">
+                    <img class="time" src="images/0.png" alt="">
+                    <img class="sub" src="images/0.png" alt="">
+                </li>
+                <li>
+                    <img src="images/d.png" alt="">
+                </li>
+                <li class="list">
+                    <img class="time" src="images/0.png" alt="">
+                    <img class="sub" src="images/0.png" alt="">
+                </li>
+                <li class="list">
+                    <img class="time" src="images/0.png" alt="">
+                    <img class="sub" src="images/0.png" alt="">
+                </li>
+            </ul>
+        </div>
+        <script>
+            /* 000000
+
+    215503 */
+
+            const list = document.getElementsByClassName("list")
+            const time = [...document.getElementsByClassName("time")]
+            const sub = document.getElementsByClassName("sub")
+
+            const len = time.length
+
+            /* for (let i = 0; i < len; i++){
+              time[i].num = 0
+            } */
+
+            time.forEach((v, i) => v.num = i)
+
+
+
+
+            const fn = () => {
+                // 切换时间字符串为数组 toTimeString()方法Date以美式英语返回人类可读形式的对象的时间部分。
+                //slice（位置开始，位置结束） 字符串方法剪切 / split（目标数据）删除目标数据 join数组方法加入变字符串
+                let dateArr = [...new Date().toTimeString().slice(0, 8).split(":").join("")]
+
+
+
+                dateArr.forEach((v, i) => {//循环遍历的方法数组
+                    if(v !== time[i].num){
+                        sub[i].src = `images/${v}.png`
+                        time[i].num = v
+
+                        animation(list[i], {
+                            data: {
+                                "margin-top": -65
+                            }
+                        }, 700, () => {
+                            time[i].src = `images/${v}.png`
+                            list[i].style.marginTop = 0
+                        })
+                    }
+                })
+
+
+                /* for (let i = 0; i < len; i++){
+                 if(dateStr[i] === time[i].num)continue
+
+                 sub[i].src = `images/${dateStr[i]}.png`
+                 time[i].num = dateStr[i]
+
+                 animation(list[i], {
+                   data: {
+                     "margin-top": -65
+                   }
+                 }, 700, () => {
+                   time[i].src = `images/${dateStr[i]}.png`
+                   list[i].style.marginTop = 0
+                 })  }*/
+            }
+
+
+            setInterval(fn, 1000)
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

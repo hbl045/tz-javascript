@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            div{
+                font-size: 50px;
+            }
+            span{
+                color: #00b262;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div id="wrap">距离双十一还有:<span id="time">123天20小时30分钟31秒</span></div>
+        <script>
+            const time = document.getElementById("time")
+            //18年双十一时间
+            const target = new Date("2018/11/11")
+            const {floor} = Math
+
+            let addZero = n => n<10? "0" + n : "" + n; //补充位数
+
+            const fn = ()=>{
+                const date = target - new Date()
+                //天数
+                const D = floor(date/24/60/60/1000)
+                //小时
+                const h = floor(date/1000/60/60)%24
+                //分钟
+                const m = floor(date/1000/60)%60
+                //秒
+                const s = floor(date/1000)%60
+
+                time.innerText = `${addZero(D)}天${addZero(h)}小时${addZero(m)}分钟${addZero(s)}秒`
+            }
+
+            setInterval(fn,1000)
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
