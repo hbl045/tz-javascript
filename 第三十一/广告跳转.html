@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            p{
+                margin-top: 100px;
+                text-align: center;
+                font-size: 50px;
+                border-bottom: 1px dashed #000;
+            }
+            div{
+                margin-top: 50px;
+                text-align: center;
+            }
+            span{
+                font-weight: bold;
+                color: #f00;
+            }
+        </style>
+    </head>
+    <body>
+        <p>404 页面未找到~~</p>
+        <div><span>8</span>秒后，返回 <a href="">主页</a> </div>
+        
+        <script>
+            (function(){
+
+                let oS = document.querySelector("div span");
+                let sVal = 8;
+
+                setInterval( function(){
+                    oS.innerHTML = --sVal;//倒计时
+                    if( sVal === 1 ){
+                        window.location.href = "https://juejin.im/timeline";
+                    }
+                },1000);//使用定时器，多次迭代进行跳转
+
+
+            })();
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
