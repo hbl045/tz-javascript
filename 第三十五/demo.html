@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>青年旅社</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+            *{margin: 0;padding: 0;}
+            body{font:16px/1.5 'Microsoft Yahei';}
+            .clearfix:after{content:'';display:block;clear:both;}
+            .fl{float:left;}
+            .fr{float:right;}
+            #wrap{
+                height:580px;
+                background:linear-gradient(180deg,#8CC1DE,#F9A886);
+                overflow:hidden;
+            }
+            #wrap .container{
+                width:800px;
+                margin:50px auto;
+            }
+            #wrap .container .target{
+                width:50%;
+                background-color: #fff;
+                line-height:2;
+                min-height:550px;
+            }
+            #wrap .container .target p{
+                margin:50px 20px 0;
+                color:#F9A886;
+            }
+            #wrap .container .target a{
+                background-color: #fff;
+                text-decoration: none;
+                color:#000;
+            }
+            #wrap .container .target a:hover{
+                color:red;
+            }
+            #wrap .container .target ol li{
+                list-style: none;
+                font-style:normal;
+                display: inline-block;
+                margin:10px 0 0 20px ;
+                padding:0 5px;
+                color:#999;
+                border:1px solid #ccc;
+            }
+            #wrap .container .target ol li:hover i{
+                color:red;
+                cursor:pointer;
+            }
+            #wrap .container .target ol li span{
+                padding-right:5px;
+            }
+            #wrap .container .target ol li i{
+                padding:0 5px;
+                border-left:1px solid #ccc;
+            }
+            #wrap .container .show{
+                width:50%;
+                min-height:550px;
+                background-color: rgba(0,0,0,0.5);
+            }
+            #wrap .container .show ul{
+                margin-top:50px;
+            }
+            #wrap .container .show ul li{
+                list-style: none;
+                font-style:normal;
+                display: inline-block;
+                margin:20px;
+                padding:5px;
+                border:1px solid #ccc;
+                color:#fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="container clearfix">
+                <div class="target fl">
+                    <p> 热门目的地：<!-- href=”javascript:void(0);”这个的含义是，
+                    让超链接去执行一个js函数，而不是去跳转到一个地址，而void(0)表示一个空的方法，
+                    也就是不执行js函数。-->
+                        <a href="javascript:void(0);">马来西亚</a>
+                        <a href="javascript:void(0);">泰国</a>
+                        <a href="javascript:void(0);">三亚</a>
+                        <a href="javascript:void(0);">新西兰</a>
+                        <a href="javascript:void(0);">云南</a>
+                    </p>
+                    <ol class='clearfix' onselectstart = 'return false'>
+
+
+                    </ol>
+
+                </div>
+                <div class="show fr">
+                    <ul class='clearfix'>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        
+        <script>
+            var aA = document.getElementsByTagName('a'),
+                OL = document.getElementsByTagName('ol')[0],
+                tar_li = OL.getElementsByTagName('li'),
+                UL = document.getElementsByTagName('ul')[0],
+                show_li = UL.getElementsByTagName('li'),
+                new_obj = null
+            ;
+            for(var i = 0; i<aA.length; i++) {//循环a标签
+                aA[i].onclick = function () {
+
+                    if (UL.children) {//判断右侧是否有子字符节点
+                        for (var i = 0; i < show_li.length; i++) {
+                            if (show_li[i].innerHTML.match(this.innerHTML)) {//这个this是指aA的
+                                console.log('ok');
+                                return false;
+                            }
+                        }
+                    }
+
+                    var new_span = document.createElement('span');// 新建节点 用var存放
+                    new_span.innerHTML = this.innerHTML;
+                    //console.log(this.innerHTML)；
+                    var new_i = document.createElement('i');
+                    new_i.innerHTML = 'x';
+                    //添加事件 X为关闭键
+                    new_i.onclick = cancel;
+                    //var val = this.value;
+                    var new_li = document.createElement('li');
+                    new_li.className = 'fl';
+                    new_li.appendChild(new_span);
+                    new_li.appendChild(new_i);
+                    OL.appendChild(new_li);//ol现在里面有li span i
+                    new_obj = new_li.cloneNode(true);// ?返回克隆
+                    var i = new_obj.firstElementChild.nextElementSibling;
+                    new_obj.removeChild(i);
+                    UL.appendChild(new_obj);
+                    // console.log(new_obj);
+                }
+            }
+            function cancel() {
+                    //console.log(this.previousElementSibilings.innerHTML)
+                    for(var i=0; i<show_li.length;i++){
+                        //console(i);
+                        show_li[i].parentNode.removeChild(show_li[i]);
+                        this.parentNode.parentNode.removeChild(this.parentNode);
+                    }
+
+
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

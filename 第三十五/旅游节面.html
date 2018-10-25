@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+
+            #wrap{
+                width: 100%;
+                height: 580px;
+                background: linear-gradient(180deg,#0086b3,crimson);
+                user-select: none;
+            }
+            #wrap #content{
+                width: 800px;
+                height: 530px;
+                margin: 0 auto;
+                padding-top: 50px;
+            }
+            #content .left,#content .right{
+                float: left;
+                width: 50%;
+                height: 100%;
+            }
+            #content .left{
+                background-color: white;
+            }
+            #content .left p{
+                padding: 30px 0 0 15px;
+                font-size: 16px;
+                color: crimson;
+            }
+            #content .left p span{
+                font-size: 14px;
+                color: black;
+                cursor: pointer;
+            }
+            #content .left p span:hover{
+                color: #f00;
+            }
+            #content .right{
+                background-color: rgba(0,0,0,.5);
+            }
+            #content .left .create{
+                margin-top: 20px;
+                margin-left: 15px;
+            }
+            #content .left .create p{
+                float: left;
+                margin-right: 15px;
+                margin-bottom: 10px;
+                padding: 5px 7px;
+                border: 1px solid #ddd;
+                color: #bbb;
+            }
+            #content .left .create p i:hover{
+                cursor: pointer;
+                color: #f00;
+            }
+            #content .right .create{
+                padding-top: 50px;
+                padding-left: 15px;
+            }
+            #content .right .create p{
+                float: left;
+                padding: 10px;
+                border: 1px solid #fff;
+                font-size: 14px;
+                margin-right: 20px;
+                margin-bottom: 10px;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="content">
+                <div class="left">
+                    <p>热门推介:
+                    <span>java</span>
+                    <span>javascript</span>
+                    <span>c#</span>
+                    <span>Vue</span>
+                    <span>python</span>
+                    </p>
+                    <div class="create">
+                        <!--<p>java | <i>X</i></p>-->
+                        <!--<p>javascript | <i>X</i></p>-->
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="create">
+                        <!--<p>java</p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            (function () {
+                let aSpan = [...document.querySelectorAll("#wrap #content .left p span")],
+                    oLeftCreate = document.querySelector("#wrap #content .left .create"),
+                    oRightCreate = document.querySelector("#wrap #content .right .create"),
+                    ifAdd = []
+                ;
+                console.log(1)
+                //主要的点击事件
+                aSpan.forEach((ele,index)=>{
+                    ele.onclick = function(){
+                        if( !ifAdd[index] )ifAdd[index] = {};
+                        if( ifAdd[index].bool )return;
+                        //生成内容
+                        createLeftP(this.innerHTML,index);
+                        //改变状态
+                        ifAdd[index].bool = true;
+                    };
+                });
+
+                //生成右侧的oP
+                function createLeftP(html,index) {
+                    let data = ifAdd[index];
+
+                    if( ! data.oLeftP){
+                        //左侧的内容
+                        data.oLeftP = document.createElement("p");
+
+                        let txt = document.createTextNode(html + " | "),
+                            oI = document.createElement("i");
+                        oI.innerHTML = "X";
+                        //oI 的关闭事件
+                        oI.onclick = function () {
+                            oLeftCreate.removeChild(data.oLeftP);
+                            oRightCreate.removeChild(data.oRightP);
+                            data.bool = false;
+                        };
+                        data.oLeftP.appendChild(txt);
+                        data.oLeftP.appendChild(oI);
+
+                        //右侧的内容
+                        data.oRightP = document.createElement("p");
+                        data.oRightP.innerHTML = html;
+                    }
+
+                    oLeftCreate.appendChild(data.oLeftP);
+                    oRightCreate.appendChild(data.oRightP);
+                }
+
+
+
+            })();
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
