@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+
+            #wrap{
+                position: absolute;
+                top: 300px;
+                left: 400px;
+                width: 100px;
+                height: 100px;
+                user-select: none;
+                background: linear-gradient(to bottom,crimson 0,chocolate 100%);
+            }
+            .drag div{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+            .drag .w{
+                top: 0;
+                left: 0;
+                width: 5px;
+                background-color: #43c052;
+                cursor: w-resize;
+            }
+            .drag .n{
+                top: 0;
+                left: 0;
+                height: 5px;
+                background-color: #43c052;
+                cursor: n-resize;
+            }
+            .drag .e{
+                top: 0;
+                right: 0;
+                width: 5px;
+                background-color: #43c052;
+                cursor: e-resize;
+            }
+            .drag .s{
+                bottom: 0;
+                left: 0;
+                height: 5px;
+                background-color: #43c052;
+                cursor: s-resize;
+            }
+            .drag .nw{
+                top: 0;
+                left: 0;
+                width: 5px;
+                height: 5px;
+                background-color: #f00;
+                cursor: nw-resize;
+            }
+            .drag .ne{
+                top: 0;
+                right: 0;
+                width: 5px;
+                height: 5px;
+                background-color: #f00;
+                cursor: ne-resize;
+            }
+            .drag .se{
+                bottom: 0;
+                right: 0;
+                width: 5px;
+                height: 5px;
+                background-color: #f00;
+                cursor: se-resize;
+            }
+            .drag .sw{
+                bottom: 0;
+                left: 0;
+                width: 5px;
+                height: 5px;
+                background-color: #f00;
+                cursor: sw-resize;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="wrap">
+            <div class="drag">
+                <div class="w"></div>
+                <div class="n"></div>
+                <div class="e"></div>
+                <div class="s"></div>
+                <div class="nw"></div>
+                <div class="ne"></div>
+                <div class="sw"></div>
+                <div class="se"></div>
+            </div>
+        </div>
+        
+        <script>
+
+            (function(){
+
+                let oWrap = document.getElementById("wrap");
+                let aDrag = [...document.querySelectorAll("#wrap .drag div")];
+
+
+                aDrag.forEach((ele,index)=>{
+
+                    //鼠标按下事件
+                    ele.onmousedown = function(ev){
+                        //获取鼠标的按下的位置
+                        let sX = ev.clientX,
+                            sY = ev.clientY;
+                        //获取按下时的宽度
+                        let sWidth = parseFloat(getComputedStyle(oWrap).width);
+                        let sHeight = parseFloat(getComputedStyle(oWrap).height);
+                        let sTop = oWrap.offsetTop;
+                        let sLeft = oWrap.offsetLeft;
+                        //获取left和top的最大值
+                        let maxLeft = sLeft + oWrap.offsetWidth - 10;
+                        let maxTop = sTop + oWrap.offsetHeight - 10;
+
+                        //按下之后，给document添加move事件
+                        document.onmousemove = function(ev){
+                            let [width,height,top,left]=[sWidth,sHeight,sTop,sLeft];
+                            let x_ = ev.clientX - sX,
+                                y_ = ev.clientY - sY;
+
+                            switch(index){
+                                case 0:
+                                    width=sWidth-x_;
+                                    left=sLeft + x_;
+                                    break;
+                                case 1:
+                                    height=sHeight-y_;
+                                    top=sTop+y_;
+                                    break;
+                                case 2:
+                                    width = sWidth+x_;
+                                    break;
+                                case 3:
+                                    height=sHeight+y_;
+                                    break;
+                                case 4:
+                                    width=sWidth-x_;
+                                    left=sLeft + x_;
+                                    height=sHeight-y_;
+                                    top=sTop+y_;
+                                    break;
+                                case 5:
+                                    width = sWidth+x_;
+                                    height=sHeight-y_;
+                                    top=sTop+y_;
+                                    break;
+                                case 6:
+                                    width = sWidth+x_;
+                                    height=sHeight+y_;
+                                    break;
+                                case 7:
+                                    width=sWidth-x_;
+                                    left=sLeft + x_;
+                                    height=sHeight+y_;
+                                    break;
+                            };
+                            width = Math.max(width,10);
+                            height = Math.max(height,10);
+                            left = Math.min(left,maxLeft);
+                            top = Math.min(top,maxTop);
+                            oWrap.style.width = width+'px';
+                            oWrap.style.height = height+'px';
+                            oWrap.style.left = left+'px';
+                            oWrap.style.top = top+'px';
+                        };
+                    };
+
+                });
+
+                //盒子拖拽的方法，暂时还不能解决拖拽与盒子大小拉伸的功能结合
+                // 估计解决拖拽的方法是拖动在oWrap中间不用border的内容盒子作为拖动体
+                // 还是通过阻止事件冒泡，在拖动oWrap的按照优先级拖动
+                // oWrap.onmousedown=function(ev) {
+                //     //获取鼠标初始位置
+                //     let sX = ev.clientX;
+                //     let sY = ev.clientY;
+                //     //获取按下时，盒子的位置
+                //     let sLeft = oWrap.offsetLeft;
+                //     let sTop = oWrap.offsetTop;
+                //
+                //     document.onmousemove=function(ev){
+                //         //获取鼠标当前位置
+                //         let mX = ev.clientX;
+                //         let mY = ev.clientY;
+                //
+                //         //计算出鼠标位置的变化量
+                //         let x_ = mX - sX;
+                //         let y_ = mY - sY;
+                //
+                //         //盒子当前的位置 = 盒子按下的位置 + 变化量
+                //         oWrap.style.left = sLeft + x_ + 'px';
+                //         oWrap.style.top = sTop + y_ + 'px';
+                //     };
+                //
+                //
+                //
+                //
+                // };
+                document.onmouseup=function() {
+                    this.onmousemove = null;
+                };
+            })();
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
