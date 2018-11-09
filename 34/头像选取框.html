@@ -1,0 +1,493 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="keywords" content="关键词">
+        <meta name="description" content="描述">
+        <meta name="author" content="黄柏龙">
+        <style>
+            body{font-family: "Microsoft YaHei",serif;}
+            body,dl,dd,p,h1,h2,h3,h4,h5,h6{margin:0;}
+            ol,ul,li{margin:0;padding:0;list-style:none;}
+            img{border:none;}
+
+            body{
+                background-color: #333;
+                user-select: none;
+                height: 2000px;
+            }
+            .clearfix::after{
+                content: "";
+                display: block;
+                clear: both;
+            }
+           [id*=wrap]{
+               position: relative;
+               width: 500px;
+               height: 500px;
+               margin:50px 50px;
+               float: left;
+           }
+            [id*=img]{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: block;
+            }
+            #img1{
+                opacity: 0.2;
+
+                filter: alpha(opacity=20);
+            }
+            #img2{
+                clip: rect(0px,100px,100px,0px);
+            }
+            #img3{
+                top: 0;
+                left: 0;
+                clip: rect(0px,100px,100px,0px);
+            }
+            #box{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100px;
+                height: 100px;
+                border:1px solid white;
+                box-sizing: border-box;
+                cursor: move;
+                z-index: 3;
+                background: url("img/2.jpg");
+            }
+            #box>div{
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: white;
+            }
+            #box>.nw{
+                top: -5px;
+                left: -5px;
+                cursor: nw-resize;
+            }
+            #box>.ne{
+                top: -5px;
+                right: -5px;
+                cursor: ne-resize;
+            }
+            #box>.se{
+                bottom: -5px;
+                right: -5px;
+                cursor: se-resize;
+            }
+            #box>.sw{
+                bottom: -5px;
+                left: -5px;
+                cursor: sw-resize;
+            }
+            #box>.n{
+                top: -5px;
+                left: 50%;
+                cursor: n-resize;
+                margin-left: -5px;
+            }
+            #box>.e{
+                right: -5px;
+                top: 50%;
+                cursor: e-resize;
+                margin-top: -5px;
+            }
+            #box>.s{
+                bottom: -5px;
+                left: 50%;
+                cursor: s-resize;
+                margin-left: -5px;
+            }
+            #box>.w{
+                left: -5px;
+                top: 50%;
+                cursor: w-resize;
+                margin-top: -5px;
+            }
+
+
+
+        </style>
+    </head>
+    <body>
+        <div id="wrap" class="fl-l" >
+            <img src="img/2.jpg" alt="" id="img1">
+            <img src="img/2.jpg" alt="" id="img2">
+            <div id="box" class="box">
+                <div class="w"></div>
+                <div class="n"></div>
+                <div class="e"></div>
+                <div class="s"></div>
+                <div class="nw"></div>
+                <div class="ne"></div>
+                <div class="sw"></div>
+                <div class="se"></div>
+            </div>
+        </div>
+
+        <div id="wrap2" class="fl-l">
+            <img src="img/2.jpg" alt="" id="img3">
+        </div>
+
+        <script>
+            /*
+				事件代理
+					mousedown事件
+			 */
+            const { max, min } = Math
+
+
+            document.onmousedown = function(e){
+                // down时 mouse 的坐标
+                let down_x = e.clientX
+                let down_y = e.clientY
+
+                // 代理事件 一定需要的就是 事件源
+                const that = e.target
+                // 拿到跟clip相关的属性
+                const boxRect = box.getBoundingClientRect()
+                // 宽高
+                let down_box_width = boxRect.width
+                let down_box_height = boxRect.height
+                // 定位
+                let down_box_top = boxRect.top - 50
+                let down_box_left = boxRect.left - 50
+                // 父盒子的宽高（因为不能移动超出父级边界）
+                const wrapRect = wrap.getBoundingClientRect()
+                let down_wrap_width = wrapRect.width
+                let down_wrap_height = wrapRect.height
+                // 接下来开始移动
+                document.onmousemove = function(e){
+                    // 移动时 鼠标坐标距离起始时的差值（变化量）
+                    let x_ = e.clientX - down_x
+                    let y_ = e.clientY - down_y
+
+                    switch (that.className) {
+                        case "box":
+                            // console.log("当前down下的对象是clip")
+                            // 拖动？   鼠标坐标变化量 + 初始被拖动物体top、left
+                            let top = y_ + down_box_top
+                            let left = x_ + down_box_left
+                            // 限制边界
+                            top = max(0, top)
+                            top = min(down_wrap_height - down_box_height, top)
+
+                            left = max(0, left)
+                            left = min(down_wrap_width - down_box_width, left)
+
+                            that.style.left = left + "px"
+                            that.style.top = top + "px"
+                            break;
+
+                        case "n":
+                            // console.log("当前down下的对象是top")
+                            y_ = max(y_, -down_box_top)
+                            y_ = min(y_, down_box_height - 100)
+
+                            box.style.height = down_box_height - y_ + "px"
+                            box.style.top = down_box_top + y_ + "px"
+
+                            break;
+
+                        case "e":
+                            // console.log("当前down下的对象是right")
+                            x_ = max(x_, 100 - down_box_width)
+                            x_ = min(x_, down_wrap_width - down_box_width - down_box_left)
+
+                            box.style.width = down_box_width + x_ + 'px'
+                            break;
+
+                        case "s":
+                            // console.log("当前down下的对象是bot")
+                            y_ = max(y_, 100 - down_box_height)
+                            y_ = min(y_, down_wrap_height - down_box_height - down_box_top)
+
+                            box.style.height = down_box_height + y_ + 'px'
+                            break;
+
+                        case "w":
+                            // console.log("当前down下的对象是left")
+                            x_ = max(x_, -down_box_left)
+                            x_ = min(x_, down_box_width - 100)
+
+                            box.style.width = down_box_width - x_ + "px"
+                            box.style.left = down_box_left + x_ + "px"
+
+                            break;
+
+                        case "nw":
+                            // console.log("当前down下的对象是LeftTop")
+                            x_ = max(x_, -down_box_left)
+                            x_ = min(x_, down_box_width - 100)
+
+                            box.style.width = down_box_width - x_ + "px"
+                            box.style.left = down_box_left + x_ + "px"
+
+                            y_ = max(y_, -down_box_top)
+                            y_ = min(y_, down_box_height - 100)
+
+                            box.style.height = down_box_height - y_ + "px"
+                            box.style.top = down_box_top + y_ + "px"
+
+                            break;
+
+                        case "ne":
+                            // console.log("当前down下的对象是r-t")
+                            y_ = max(y_, -down_box_top)
+                            y_ = min(y_, down_box_height - 100)
+
+                            box.style.height = down_box_height - y_ + "px"
+                            box.style.top = down_box_top + y_ + "px"
+
+                            x_ = max(x_, 100 - down_box_width)
+                            x_ = min(x_, down_wrap_width - down_box_width - down_box_left)
+
+                            box.style.width = down_box_width + x_ + 'px'
+                            break;
+
+                        case "se":
+                            // console.log("当前down下的对象是r-b")
+                            x_ = max(x_, 100 - down_box_width)
+                            x_ = min(x_, down_wrap_width - down_box_width - down_box_left)
+
+                            box.style.width = down_box_width + x_ + 'px'
+
+                            y_ = max(y_, 100 - down_box_height)
+                            y_ = min(y_, down_wrap_height - down_box_height - down_box_top)
+
+                            box.style.height = down_box_height + y_ + 'px'
+                            break;
+
+                        case "sw":
+                            // console.log("当前down下的对象是l-b")
+                            y_ = max(y_, 100 - down_box_height)
+                            y_ = min(y_, down_wrap_height - down_box_height - down_box_top)
+
+                            box.style.height = down_box_height + y_ + 'px'
+
+                            x_ = max(x_, -down_box_left)
+                            x_ = min(x_, down_box_width - 100)
+
+                            box.style.width = down_box_width - x_ + "px"
+                            box.style.left = down_box_left + x_ + "px"
+
+                            break;
+                        // 没有default
+                    }
+                    // 在这里赋值 第二个图片的
+                    const boxTop = box.offsetTop
+                    const boxLeft = box.offsetLeft
+                    const boxWidth = box.offsetWidth
+                    const boxHeight = box.offsetHeight
+
+                    img2.style.clip = `rect(${boxTop}px, ${boxLeft + boxWidth}px, ${boxHeight + boxTop}px, ${boxLeft}px)`
+
+                    img3.style.clip = `rect(${boxTop}px, ${boxLeft + boxWidth}px, ${boxHeight + boxTop}px, ${boxLeft}px)`
+
+                    img3.style.top = -boxTop + 'px'
+                    img3.style.left = -boxLeft + 'px'
+                }
+            }
+
+            document.onmouseup = function(){
+                this.onmousemove = null
+            }
+
+
+
+
+
+
+
+
+            // (function () {
+            //     //按下事件
+            //     document.onmousedown = function (ev) {
+            //         // box的位置移动 box.div 的功能实现了
+            //
+            //         //初始鼠标的位置
+            //         let down_y = ev.clientY,
+            //             down_x = ev.clientX
+            //         ;
+            //
+            //         const that = ev.target
+            //
+            //         //获取盒子的初始宽高
+            //         let down_box_width = box.offsetWidth;
+            //         let down_box_height = box.offsetHeight;
+            //
+            //         //获取盒子定位值
+            //         let down_box_top = box.offsetTop;
+            //         let down_box_left = box.offsetLeft;
+            //
+            //         //大盒子的宽高
+            //         let down_wrap_width = wrap.offsetWidth;
+            //         let down_wrap_height = wrap.offsetHeight;
+            //
+            //         document.onmousemove = function (ev) {
+            //             // 移动时 鼠标坐标距离起始时的差值（变化量）
+            //             let x_ = ev.clientX - down_x;
+            //             let y_ = ev.clientY - down_y;
+            //
+            //             switch (that.className) {
+            //                 case "box":
+            //                     // console.log("当前down下的对象是clip")
+            //                     // 拖动？   鼠标坐标变化量 + 初始被拖动物体top、left
+            //                     let top = y_ + down_box_top // ev.clientY - down_y 变化值 +   box.offsetTop - 50 初始值
+            //                     let left = x_ + down_box_left
+            //                     // 限制边界
+            //                     top = Math.max(0, top)
+            //                     top = Math.min(down_wrap_height - down_box_height, top)
+            //
+            //                     left = Math.max(0, left)
+            //                     left = Math.min(down_wrap_width - down_box_width, left)
+            //
+            //                     that.style.left = left + "px"
+            //                     that.style.top = top + "px"
+            //                     break;
+            //
+            //                 case "n":
+            //                     // console.log("当前down下的对象是top")
+            //                     y_ = Math.max(y_, -down_box_top)
+            //                     y_ = Math.min(y_, down_box_height - 100)
+            //
+            //                     box.style.height = down_box_height - y_ + "px"
+            //                     box.style.top = down_box_top + y_ + "px"
+            //
+            //                     break;
+            //
+            //                 case "e":
+            //                     // console.log("当前down下的对象是right")
+            //                     x_ = Math.max(x_, 100 - down_box_width)
+            //                     x_ = Math.min(x_, down_wrap_width - down_box_width - down_box_left)
+            //
+            //                     box.style.width = down_box_width + x_ + 'px'
+            //                     break;
+            //
+            //                 case "s":
+            //                     // console.log("当前down下的对象是bot")
+            //                     y_ = Math.max(y_, 100 - down_box_height)
+            //                     y_ = Math.min(y_, down_wrap_height - down_box_height - down_box_top)
+            //
+            //                     box.style.height = down_box_height + y_ + 'px'
+            //                     break;
+            //
+            //                 case "w":
+            //                     // console.log("当前down下的对象是left")
+            //                     x_ = Math.max(x_, -down_box_left)
+            //                     x_ = Math.min(x_, down_box_width - 100)
+            //
+            //                     box.style.width = down_box_width - x_ + "px"
+            //                     box.style.left = down_box_left + x_ + "px"
+            //
+            //                     break;
+            //
+            //                 case "nw":
+            //                     // console.log("当前down下的对象是LeftTop")
+            //                     x_ = Math.max(x_, -down_box_left)
+            //                     x_ = Math.min(x_, down_box_width - 100)
+            //
+            //                     box.style.width = down_box_width - x_ + "px"
+            //                     box.style.left = down_box_left + x_ + "px"
+            //
+            //                     y_ = Math.max(y_, -down_box_top)
+            //                     y_ = Math.min(y_, down_box_height - 100)
+            //
+            //                     box.style.height = down_box_height - y_ + "px"
+            //                     box.style.top = down_box_top + y_ + "px"
+            //
+            //                     break;
+            //
+            //                 case "ne":
+            //                     // console.log("当前down下的对象是r-t")
+            //                     y_ = Math.max(y_, -down_box_top)
+            //                     y_ = Math.min(y_, down_box_height - 100)
+            //
+            //                     box.style.height = down_box_height - y_ + "px"
+            //                     box.style.top = down_box_top + y_ + "px"
+            //
+            //                     x_ = Math.max(x_, 100 - down_box_width)
+            //                     x_ = Math.min(x_, down_wrap_width - down_box_width - down_box_left)
+            //
+            //                     box.style.width = down_box_width + x_ + 'px'
+            //                     break;
+            //
+            //                 case "se":
+            //                     // console.log("当前down下的对象是r-b")
+            //                     x_ = Math.max(x_, 100 - down_box_width)
+            //                     x_ = Math.min(x_, down_wrap_width - down_box_width - down_box_left)
+            //
+            //                     box.style.width = down_box_width + x_ + 'px'
+            //
+            //                     y_ = Math.max(y_, 100 - down_box_height)
+            //                     y_ = Math.min(y_, down_wrap_height - down_box_height - down_box_top)
+            //
+            //                     box.style.height = down_box_height + y_ + 'px'
+            //                     break;
+            //
+            //                 case "sw":
+            //                     // console.log("当前down下的对象是l-b")
+            //                     y_ = Math.max(y_, 100 - down_box_height)
+            //                     y_ = Math.min(y_, down_wrap_height - down_box_height - down_box_top)
+            //
+            //                     box.style.height = down_box_height + y_ + 'px'
+            //
+            //                     x_ = Math.max(x_, -down_box_left)
+            //                     x_ = Math.min(x_, down_box_width - 100)
+            //
+            //                     box.style.width = down_box_width - x_ + "px"
+            //                     box.style.left = down_box_left + x_ + "px"
+            //
+            //                     break;
+            //                 // 没有default
+            //             };
+            //
+            //             //最后
+            //             const boxTop = box.offsetTop;
+            //             const boxLeft = box.offsetLeft;
+            //             const boxWidth = box.offsetWidth;
+            //             const boxHeight = box.offsetHeight;
+            //
+            //
+            //
+            //             img2.style.clip = `rect(${boxTop}px, ${boxLeft + boxWidth}px, ${boxHeight + boxTop}px, ${boxLeft}px)`
+            //
+            //             img3.style.clip = `rect(${boxTop}px, ${boxLeft + boxWidth}px, ${boxHeight + boxTop}px, ${boxLeft}px)`
+            //
+            //             img3.style.top = -boxTop + 'px'
+            //             img3.style.left = -boxLeft + 'px'
+            //         }
+            //
+            //
+            //
+            //     }
+            //
+            //     //抬起事件
+            //     document.onmouseup = function () {
+            //         this.onmousemove = null;
+            //     }
+            // })();
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
